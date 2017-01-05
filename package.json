@@ -6,8 +6,13 @@
     "react-scripts": "0.8.4"
   },
   "dependencies": {
+    "apollo-client": "^0.5.25",
+    "graphql-tag": "^1.1.2",
     "react": "^15.4.1",
-    "react-dom": "^15.4.1"
+    "react-apollo": "file:../react-apollo",
+    "react-dom": "^15.4.1",
+    "react-router": "next",
+    "subscriptions-transport-ws": "^0.3.1"
   },
   "scripts": {
     "start": "react-scripts start",
