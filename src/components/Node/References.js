@@ -56,9 +56,9 @@ const _References = ({loading, data: { uaNode }={}})=>
             -
             {r.displayName.text} 
              -
-            <Name id= {r.referenceTypeId.uaNode.id}/>
+            <Name id={r.referenceTypeId.uaNode.id}/>
              -
-            <Name id= {r.typeDefinition.uaNode.id}/>
+            <Name id={r.typeDefinition.uaNode.id}/>
             
           </Link>
           

@@ -20,7 +20,13 @@ const MyMutation = gql`mutation callMethod($id: String, $methodId: String) {
     }
   }
 }`;
-const MyCaller = ({submit, id, methodId}) => <span onClick={()=>submit({ id, methodId })}>call</span>
+const MyCaller = ({submit, id, node: {id:methodId, displayName, executable, arguments: args}={}}) => <div>
+{executable.value && <div>
+    {JSON.stringify(args)}
+    <button onClick={()=>submit({ id, methodId })}>{displayName.value.text}</button>
+  </div>
+}
+</div>
 
 
 const Method = graphql(MyMutation, {

@@ -1,8 +1,6 @@
 import React from 'react';
 import gql from 'graphql-tag';
 import { graphql, compose } from 'react-apollo';
-import { Link } from 'react-router'
-import Name from './Name'
 
 const MyNodeQuery = gql`query q($id: String!) { 
   uaNode(id: $id) {

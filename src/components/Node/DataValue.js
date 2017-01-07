@@ -32,12 +32,27 @@ const MyNodeQuery = gql`
           ... on UaStringArray {stringArrayValue: value}
           ... on UaGuidArray {guidArrayValue: value}
           ... on UaByteStringArray {byteStringArrayValue: value}
+          ... on UaXmlElement  { xmlElementValue: value}
+          ... on UaXmlElementArray  { xmlElementValueArray: value}
+
+          ... on UaLocalizedText  { localizedTextValue: value { text }}
+          ... on UaLocalizedTextArray  { localizedTextValueArray: value { text }}
+          ... on UaQualifiedName  { qualifiedNameValue: value { name }}
+          ... on UaQualifiedNameArray  { qualifiedNameValueArray: value { name }}
+
+          ... on UaStatusCode  { statusCodeValue: value { name }}
+          ... on UaStatusCodeArray  { statusCodeValueArray: value { name }}
+          ... on UaNodeId  { nodeIdValue: value { identifierType value namespace namespaceUri serverIndex}}
+          ... on UaNodeIdArray  { nodeIdValueArray: value { identifierType }}
+          ... on UaExpandedNodeId  { expandedNodeIdValue: value { identifierType value namespace namespaceUri serverIndex}}
+          ... on UaExpandedNodeIdArray  { expandedNodeIdValueArray: value { identifierType, }}
+
         }
       } 
     } 
   }`;
 
-
+// eslint-disable-next-line no-unused-vars
 const NODE_SUBSCRIPTION_QUERY = gql`
   subscription value ($id: String) {
     value(id: $id) {
@@ -64,6 +79,18 @@ const NODE_SUBSCRIPTION_QUERY = gql`
           ... on UaStringArray {stringArrayValue: value}
           ... on UaGuidArray {guidArrayValue: value}
           ... on UaByteStringArray {byteStringArrayValue: value}
+          ... on UaLocalizedText  { localizedTextValue: value { text }}
+          ... on UaLocalizedTextArray  { localizedTextValueArray: value { text }}
+          ... on UaQualifiedName  { qualifiedNameValue: value { name }}
+          ... on UaQualifiedNameArray  { qualifiedNameValueArray: value { name }}          
+          ... on UaXmlElement  { xmlElementValue: value}
+          ... on UaXmlElementArray  { xmlElementValueArray: value}
+          ... on UaStatusCode  { statusCodeValue: value { name }}
+          ... on UaStatusCodeArray  { statusCodeValueArray: value { name }}
+          ... on UaNodeId  { nodeIdValue: value { identifierType value namespace namespaceUri serverIndex}}
+          ... on UaNodeIdArray  { nodeIdValueArray: value { identifierType, }}
+          ... on UaExpandedNodeId  { expandedNodeIdValue: value { identifierType value namespace namespaceUri serverIndex}}
+          ... on UaExpandedNodeIdArray  { expandedNodeIdValueArray: value { identifierType, }}
         }
       } 
     }
@@ -73,6 +100,7 @@ const NODE_SUBSCRIPTION_QUERY = gql`
 const _DataValue = ({ 
   id, 
   data: { 
+    loading,
     uaNode: {
       dataValue: {
         arrayType,
@@ -82,22 +110,44 @@ const _DataValue = ({
           booleanValue,
           longValue,
           floatValue,
+          localizedTextValue,
+          qualifiedNameValue,
+          intValue,
           intArrayValue,
-          stringArrayValue
+          guidValue,
+          stringArrayValue,
+          xmlElementValue,
+          statusCodeValue,
+          dateValue,
+          nodeIdValue,
+          expandedNodeIdValue,
         }={}
       }={}
     }={}
   }})=>
-  <div>
-    <Update id={id} dataType={dataType} arrayType={arrayType}/>
+  <div> come on {!loading && '!loading..'}
+    <h1>{__typename}</h1> 
+    <Update id={id} 
+      dataType={dataType} 
+      arrayType={arrayType}/>
     {__typename==="UaBoolean" && (booleanValue ? 'true' : 'false')}
     {__typename==="UaLong" && longValue}
+    {__typename==="UaInt" && intValue}
     
     {__typename==="UaFloat" && floatValue}
     {__typename==="UaIntArray" && intArrayValue}
     {__typename==="UaStringArray" && stringArrayValue}
-
+    {__typename==="UaLocalizedText" && localizedTextValue && localizedTextValue.text}
+    {__typename==="UaQualifiedName" && qualifiedNameValue.name}
+    {__typename==="UaXmlElement" && xmlElementValue}
+    {statusCodeValue && statusCodeValue.name}
+    {dateValue}
+    {JSON.stringify(nodeIdValue)}
+    {JSON.stringify(expandedNodeIdValue)}
+    {guidValue}
   </div>
+
+// eslint-disable-next-line no-unused-vars  
 const options = {
   shouldResubscribe: (props, nextProps) => {
     console.log('should', props, nextProps)

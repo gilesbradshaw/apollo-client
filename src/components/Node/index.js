@@ -1,7 +1,6 @@
 import React from 'react';
 import gql from 'graphql-tag';
 import { graphql, compose } from 'react-apollo';
-import Method from './Method';
 import Methods from './Methods';
 import Name from './Name';
 import NodeClass from './NodeClass';
@@ -9,7 +8,7 @@ import DataType from './DataType';
 import ValueRank from './ValueRank';
 import DataQuality from './DataQuality';
 import DataValue from './DataValue';
-import DV from './DataValue.1';
+//import DV from './DataValue.1';
 
 import References from './References';
 
@@ -19,12 +18,12 @@ const MyNodeQuery = gql`query q($id: String!) {
     nodeClass
   } 
 }`;
-
-const N = ({ loading, id, data: { uaNode } = {}})=>
+const N_ = (props)=> <div>{JSON.stringify(props)}</div>
+const N = ({ id, data: {loading, uaNode} = {}})=>
   <div>
     <References
       browseDirection='Inverse'
-      id= {id}
+      id={id}
     />
     <div>
       name: 
@@ -46,24 +45,22 @@ const N = ({ loading, id, data: { uaNode } = {}})=>
         </div>
         <div>
           dataValue: 
-          <Method id={id}/>
-          
           <DataValue id={id}/>
         </div>
         
       </div>
     }
     <References
-      id= {id}
+      id={id}
       browseDirection='Forward'
     />
     <References
       browseDirection='Forward'
       nodeClasses={['Method']}
-      id= {id}
+      id={id}
     />
     <Methods
-      id= {id}
+      id={id}
     />
   </div>
 

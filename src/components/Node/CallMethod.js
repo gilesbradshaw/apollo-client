@@ -1,7 +1,7 @@
 import React from 'react';
 import gql from 'graphql-tag';
 import { graphql, compose } from 'react-apollo';
-import Update from './Update';
+// import Update from './Update';
 
 
 const MyNodeQuery = gql`

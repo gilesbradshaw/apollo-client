@@ -20,7 +20,6 @@ const MyNodeQuery = gql`query q($id: String!) {
   } 
 }`;
 
-let nextval=0;
 const MyUpdater = ({
   submit, 
   data: { 

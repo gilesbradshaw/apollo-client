@@ -2,7 +2,6 @@ import React from 'react';
 import gql from 'graphql-tag';
 import { graphql, compose } from 'react-apollo';
 import { Link } from 'react-router'
-import Name from './Name'
 import CallMethod from './CallMethod';
 import Method from './Method';
 
@@ -22,6 +21,30 @@ const MyNodeQuery = gql`query q(
             id
             executable {
               value 
+            }
+            displayName {
+              value {
+                text
+              }
+            }
+            arguments {
+              inputArguments {
+                dataType {
+                  id
+                  displayName {
+                    value {
+                      text
+                    }
+                  }
+                }
+                name
+                valueRank
+                arrayDimensions
+                description {
+                  text
+                  locale
+                }
+              }
             }
           }
         }
@@ -44,8 +67,7 @@ const _Methods = ({id, data: { uaNode }={}})=>
             {r.nodeId.uaNode.executable.value && 'execute'}
             <CallMethod id={r.nodeId.uaNode.id}/>
           </Link>
-          <Method id={id} methodId={r.nodeId.uaNode.id}/>
-          
+          <Method id={id} node= {r.nodeId.uaNode} />
         </li>
       ) }
   </ul>
