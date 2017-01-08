@@ -19,6 +19,7 @@ const MyNodeQuery = gql`query q(
         nodeId {
           uaNode {
             id
+            commandCount
             executable {
               value 
             }
@@ -27,8 +28,28 @@ const MyNodeQuery = gql`query q(
                 text
               }
             }
+            outArguments {
+              index
+            }
             arguments {
               inputArguments {
+                dataType {
+                  id
+                  displayName {
+                    value {
+                      text
+                    }
+                  }
+                }
+                name
+                valueRank
+                arrayDimensions
+                description {
+                  text
+                  locale
+                }
+              }
+              outputArguments {
                 dataType {
                   id
                   displayName {
@@ -62,8 +83,11 @@ const _Methods = ({id, data: { uaNode }={}})=>
       && uaNode.references.references
       && uaNode.references.references.map(r=>
         <li key={r.id}>
+          <h1>{r.nodeId.uaNode.commandCount}</h1>
           <Link to={r.nodeId.uaNode.id}>
+            -{JSON.stringify(r.nodeId.uaNode.outArguments)}-
             {r.displayName.text} 
+            {r.nodeId.uaNode.id}
             {r.nodeId.uaNode.executable.value && 'execute'}
             <CallMethod id={r.nodeId.uaNode.id}/>
           </Link>

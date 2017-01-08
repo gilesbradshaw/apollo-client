@@ -113,6 +113,7 @@ const _DataValue = ({
           localizedTextValue,
           qualifiedNameValue,
           intValue,
+          stringValue,
           intArrayValue,
           guidValue,
           stringArrayValue,
@@ -133,7 +134,7 @@ const _DataValue = ({
     {__typename==="UaBoolean" && (booleanValue ? 'true' : 'false')}
     {__typename==="UaLong" && longValue}
     {__typename==="UaInt" && intValue}
-    
+    {__typename==="UaString" && stringValue}
     {__typename==="UaFloat" && floatValue}
     {__typename==="UaIntArray" && intArrayValue}
     {__typename==="UaStringArray" && stringArrayValue}

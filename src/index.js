@@ -10,6 +10,8 @@ import gql from 'graphql-tag';
 import addGraphQLSubscriptions from './helpers/addGraphQLSubscriptions'
 import Node from './components/Node'
 import Post from './components/Post'
+import { createStore, combineReducers } from 'redux'
+import { reducer as formReducer } from 'redux-form'
 
 
 const batchingNetworkInterface = createBatchingNetworkInterface({
@@ -33,6 +35,15 @@ const client = new ApolloClient({
   networkInterface,
   dataIdFromObject: o=> o.id
 });
+
+
+const reducers = {
+  apollo: client.reducer(),
+  form: formReducer     // <---- Mounted at 'form'
+}
+const reducer = combineReducers(reducers)
+const store = createStore(reducer)
+
 
 
 const MyComponent = (props) => <div>
@@ -74,8 +85,14 @@ ReactDOM.render(
       <Link to="/ns=2;i=10939">Home5</Link>
       <Link to="/ns=2;i=10219">Homesatic</Link>
       
-      <ApolloProvider client={client}>
-        <Match exactly pattern="/:id" component={SubscribedComponent} />
+      <ApolloProvider 
+        client={client} 
+        store={store}
+      >
+        <Match
+          exactly pattern="/:id"
+            component={SubscribedComponent} 
+        />
       </ApolloProvider>
     </div>
    </BrowserRouter> ,

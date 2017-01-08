@@ -15,12 +15,14 @@ import References from './References';
 const MyNodeQuery = gql`query q($id: String!) { 
   uaNode(id: $id) { 
     id
+    commandCount
     nodeClass
   } 
 }`;
 const N_ = (props)=> <div>{JSON.stringify(props)}</div>
 const N = ({ id, data: {loading, uaNode} = {}})=>
   <div>
+    {uaNode && <h1>{uaNode.commandCount}</h1>}
     <References
       browseDirection='Inverse'
       id={id}
