@@ -14,7 +14,6 @@ const MyMutation = gql`mutation callMethod(
     inputArguments: $inputArguments
   ) {
     id
-    commandCount
     outputArgument {
       index
     }
@@ -25,7 +24,7 @@ const MyMutation = gql`mutation callMethod(
 }`;
 
 const formise = reduxForm({
-  form: 'contact' // a unique name for this form
+  form: 'method' // a unique name for this form
 });
 
 const _MyCaller = ({handleSubmit, submit, id, node: {id:methodId, displayName, executable, arguments: args}={}}) => <div>

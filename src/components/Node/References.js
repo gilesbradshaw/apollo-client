@@ -21,6 +21,9 @@ const MyNodeQuery = gql`query q(
     ) {
       references {
         id
+        browseName {
+          name
+        }
         referenceTypeId { 
           uaNode { 
             id
@@ -52,13 +55,15 @@ const _References = ({loading, data: { uaNode }={}})=>
       && uaNode.references.references.map(r=>
         <li key={r.id}>
           <Link to={r.nodeId.uaNode.id}>
+            {r.browseName.name}
+            -
             {r.nodeClass}
             -
             {r.displayName.text} 
              -
-            <Name id={r.referenceTypeId.uaNode.id}/>
+            <Name id={r.referenceTypeId.uaNode.id}/> ({r.referenceTypeId.uaNode.id})
              -
-            <Name id={r.typeDefinition.uaNode.id}/>
+            <Name id={r.typeDefinition.uaNode.id}/> ({r.typeDefinition.uaNode.id})
             
           </Link>
           

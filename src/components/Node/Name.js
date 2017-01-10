@@ -16,12 +16,12 @@ const MyNodeQuery = gql`query q($id: String!) {
 
 
 const _Name = ({loading, data: { uaNode }={}})=>
-  <span style={{ fontWeight:'bold' }}>
+  <div>
     {uaNode 
       && uaNode.displayName
       && uaNode.displayName.value
       && uaNode.displayName.value.text}
-  </span>
+  </div>
 
 const Name = compose(
   graphql(MyNodeQuery)

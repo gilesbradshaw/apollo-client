@@ -19,7 +19,6 @@ const MyNodeQuery = gql`query q(
         nodeId {
           uaNode {
             id
-            commandCount
             executable {
               value 
             }
@@ -83,7 +82,6 @@ const _Methods = ({id, data: { uaNode }={}})=>
       && uaNode.references.references
       && uaNode.references.references.map(r=>
         <li key={r.id}>
-          <h1>{r.nodeId.uaNode.commandCount}</h1>
           <Link to={r.nodeId.uaNode.id}>
             -{JSON.stringify(r.nodeId.uaNode.outArguments)}-
             {r.displayName.text} 
@@ -91,7 +89,7 @@ const _Methods = ({id, data: { uaNode }={}})=>
             {r.nodeId.uaNode.executable.value && 'execute'}
             <CallMethod id={r.nodeId.uaNode.id}/>
           </Link>
-          <Method id={id} node= {r.nodeId.uaNode} />
+          <Method id={id} node={r.nodeId.uaNode} />
         </li>
       ) }
   </ul>

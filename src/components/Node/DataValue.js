@@ -2,13 +2,19 @@ import React from 'react';
 import gql from 'graphql-tag';
 import { graphql, compose } from 'react-apollo';
 import Update from './Update';
+import { Match } from 'react-router'
+import { withState } from 'recompose'
 
 
 const MyNodeQuery = gql`
   query q($id: String!) { 
     uaNode(id: $id) { 
       id
-      dataValue { 
+      dataValue {
+        statusCode {
+          value
+          description
+        }
         arrayType
         dataType
         value {
@@ -58,6 +64,10 @@ const NODE_SUBSCRIPTION_QUERY = gql`
     value(id: $id) {
       id, 
       dataValue {
+        statusCode {
+          value
+          description
+        }
         value {
           __typename
           ... on UaNull {nullValue: value}
@@ -97,15 +107,27 @@ const NODE_SUBSCRIPTION_QUERY = gql`
   }
 `;
 
-const _DataValue = ({ 
+
+
+const _DataValue = ({
+  showForm,
+  updateShowForm,
   id, 
   data: { 
     loading,
     uaNode: {
       dataValue: {
+        statusCode: {
+          value,
+          description
+        }={},
         arrayType,
         dataType,
-        value: {
+        value: dataValue
+      }={}
+    }={}
+  } = {}}={})=> {
+    const {
           __typename,
           booleanValue,
           longValue,
@@ -113,6 +135,7 @@ const _DataValue = ({
           localizedTextValue,
           qualifiedNameValue,
           intValue,
+          doubleValue,
           stringValue,
           intArrayValue,
           guidValue,
@@ -122,32 +145,39 @@ const _DataValue = ({
           dateValue,
           nodeIdValue,
           expandedNodeIdValue,
-        }={}
-      }={}
-    }={}
-  }})=>
-  <div> come on {!loading && '!loading..'}
-    <h1>{__typename}</h1> 
-    <Update id={id} 
-      dataType={dataType} 
-      arrayType={arrayType}/>
-    {__typename==="UaBoolean" && (booleanValue ? 'true' : 'false')}
-    {__typename==="UaLong" && longValue}
-    {__typename==="UaInt" && intValue}
-    {__typename==="UaString" && stringValue}
-    {__typename==="UaFloat" && floatValue}
-    {__typename==="UaIntArray" && intArrayValue}
-    {__typename==="UaStringArray" && stringArrayValue}
-    {__typename==="UaLocalizedText" && localizedTextValue && localizedTextValue.text}
-    {__typename==="UaQualifiedName" && qualifiedNameValue.name}
-    {__typename==="UaXmlElement" && xmlElementValue}
-    {statusCodeValue && statusCodeValue.name}
-    {dateValue}
-    {JSON.stringify(nodeIdValue)}
-    {JSON.stringify(expandedNodeIdValue)}
-    {guidValue}
-  </div>
-
+        }= dataValue || {}
+    return <div>
+      {!value && <div>
+        <button onClick={()=> updateShowForm(!showForm)}>show</button>
+        {showForm && <Update 
+          id={id} 
+          dataType={dataType} 
+          arrayType={arrayType}/>
+        }
+          
+          {__typename==="UaBoolean" && (booleanValue ? 'true' : 'false')}
+          {__typename==="UaLong" && longValue}
+          {__typename==="UaDouble" && doubleValue}
+          {__typename==="UaInt" && intValue}
+          {__typename==="UaString" && stringValue}
+          {__typename==="UaFloat" && floatValue}
+          {__typename==="UaIntArray" && intArrayValue}
+          {__typename==="UaStringArray" && stringArrayValue}
+          {__typename==="UaLocalizedText" && localizedTextValue && 'hahahah' + localizedTextValue.text}
+          {__typename==="UaQualifiedName" && qualifiedNameValue.name}
+          {__typename==="UaXmlElement" && xmlElementValue}
+          {statusCodeValue && statusCodeValue.name}
+          {dateValue}
+          {JSON.stringify(nodeIdValue)}
+          {JSON.stringify(expandedNodeIdValue)}
+          {guidValue}
+      </div>}
+      +{value && description}+
+    </div>
+  }
+  /*
+  
+*/
 // eslint-disable-next-line no-unused-vars  
 const options = {
   shouldResubscribe: (props, nextProps) => {
@@ -156,9 +186,11 @@ const options = {
   }
 }
 
+
 const DataValue = compose(
   graphql(NODE_SUBSCRIPTION_QUERY, options),
-  graphql(MyNodeQuery)
+  graphql(MyNodeQuery),
+  withState('showForm', 'updateShowForm'),
 )(_DataValue)
 
 export default DataValue;

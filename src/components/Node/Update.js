@@ -3,27 +3,8 @@ import gql from 'graphql-tag';
 import { graphql, compose } from 'react-apollo';
 import { Field, reduxForm } from 'redux-form';
 
-const MyMutation = gql`mutation updateNode($id: String, $value: ValueInput) {
-  updateNode (
-    id: $id
-    value: $value
-  ) {
-    id
-  }
-}`;
-const MyNodeQuery = gql`query q($id: String!) { 
-  uaNode(id: $id) {
-    id
-    dataValue {
-      dataType
-      arrayType
-      value {
-        __typename
-        ... on UaInt {intValue: value}
-      }
-    }
-  } 
-}`;
+import mutation from './DataValue/gql/mutation'
+import query from './DataValue/gql/query'
 
 const _MyUpdater = ({
   handleSubmit,
@@ -36,7 +17,7 @@ const _MyUpdater = ({
 </form>
 
 const formise = reduxForm({
-  form: 'method' // a unique name for this form
+  form: 'update' // a unique name for this form
 });
 
 const MyUpdater = formise(_MyUpdater)
@@ -47,7 +28,11 @@ const HereWeGo = ({
   data,
   loading
 })=> <div>
-  {!loading && data.uaNode && data.uaNode.dataValue && <MyUpdater
+  {!loading
+     && data.uaNode 
+     && data.uaNode.dataValue 
+     && data.uaNode.dataValue.value
+     && <MyUpdater
     initialValues={{value: data.uaNode.dataValue.value.intValue}}
     data={data}
     onSubmit={(props)=>{
@@ -68,10 +53,10 @@ const HereWeGo = ({
 
 const Update = 
   compose(
-    graphql(MyMutation, {
+    graphql(mutation, {
       props: ({ mutate})=>({mutate})
     }),
-    graphql(MyNodeQuery)
+    graphql(query)
   )(HereWeGo);
 
 export default Update;
