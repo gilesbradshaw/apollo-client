@@ -28,7 +28,7 @@ const NODE_SUBSCRIPTION_QUERY = gql`
 
 const _Executable = (props) =>
   <div>
-    {JSON.stringify(props)} +++
+    
 
   </div>
 const options = {

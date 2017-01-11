@@ -83,7 +83,6 @@ const _Methods = ({id, data: { uaNode }={}})=>
       && uaNode.references.references.map(r=>
         <li key={r.id}>
           <Link to={r.nodeId.uaNode.id}>
-            -{JSON.stringify(r.nodeId.uaNode.outArguments)}-
             {r.displayName.text} 
             {r.nodeId.uaNode.id}
             {r.nodeId.uaNode.executable.value && 'execute'}

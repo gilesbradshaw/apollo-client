@@ -13,21 +13,22 @@ import Boiler from './components/Boiler'
 
 
 const batchingNetworkInterface = createBatchingNetworkInterface({
-  uri: 'http://localhost:8089/graphql',
+  //uri: 'https://uaql-2.herokuapp.com/graphql',
+  uri: 'https://ua-ql-3.herokuapp.com/graphql',
   batchInterval: 10,
   opts: {
     // Options to pass along to `fetch`
   }
 });
 
-const wsClient = new Client('ws://localhost:8090', {timeout: 20000});
+const wsClient = new Client('ws://uaql-2.herokuapp.com/', {timeout: 20000, reconnect: true});
 
 
 const networkInterface = addGraphQLSubscriptions(
   batchingNetworkInterface,
   // createNetworkInterface({ uri: 'http://localhost:8089/graphql' }),
   wsClient,
-);
+); 
 
 const client = new ApolloClient({
   networkInterface,

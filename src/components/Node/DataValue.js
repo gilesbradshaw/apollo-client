@@ -110,8 +110,6 @@ const NODE_SUBSCRIPTION_QUERY = gql`
 
 
 const _DataValue = ({
-  showForm,
-  updateShowForm,
   id, 
   data: { 
     loading,
@@ -148,12 +146,15 @@ const _DataValue = ({
         }= dataValue || {}
     return <div>
       {!value && <div>
-        <button onClick={()=> updateShowForm(!showForm)}>show</button>
-        {showForm && <Update 
-          id={id} 
-          dataType={dataType} 
-          arrayType={arrayType}/>
-        }
+        <Match 
+          pattern='edit'
+          render={()=><Update 
+            id={id} 
+            dataType={dataType} 
+            arrayType={arrayType}/>}
+        />
+        
+        
           
           {__typename==="UaBoolean" && (booleanValue ? 'true' : 'false')}
           {__typename==="UaLong" && longValue}
@@ -190,7 +191,7 @@ const options = {
 const DataValue = compose(
   graphql(NODE_SUBSCRIPTION_QUERY, options),
   graphql(MyNodeQuery),
-  withState('showForm', 'updateShowForm'),
+  //withState('showForm', 'updateShowForm'),
 )(_DataValue)
 
 export default DataValue;

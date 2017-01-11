@@ -29,7 +29,6 @@ const formise = reduxForm({
 
 const _MyCaller = ({handleSubmit, submit, id, node: {id:methodId, displayName, executable, arguments: args}={}}) => <div>
   {executable.value && <form onSubmit={handleSubmit}>
-    {JSON.stringify(args)}
     <ul>
     {args && args.inputArguments.map((ia,i)=>
       <li key={i}>
@@ -50,7 +49,6 @@ const HereWeGo = ({submit, id,  node, data})=> <div>
   <MyCaller
  node={node}
   onSubmit={(props)=>{
-    console.log('submitting',props,node)
     submit({
       id: id, 
       methodId: node.id,

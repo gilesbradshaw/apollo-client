@@ -54,7 +54,7 @@ const _References = ({loading, data: { uaNode }={}})=>
       && uaNode.references.references
       && uaNode.references.references.map(r=>
         <li key={r.id}>
-          <Link to={r.nodeId.uaNode.id}>
+          <Link to={`/${r.nodeId.uaNode.id}`}>
             {r.browseName.name}
             -
             {r.nodeClass}

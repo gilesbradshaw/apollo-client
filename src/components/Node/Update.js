@@ -17,7 +17,7 @@ const _MyUpdater = ({
 </form>
 
 const formise = reduxForm({
-  form: 'update' // a unique name for this form
+  //form: 'update' // a unique name for this form
 });
 
 const MyUpdater = formise(_MyUpdater)
@@ -33,15 +33,18 @@ const HereWeGo = ({
      && data.uaNode.dataValue 
      && data.uaNode.dataValue.value
      && <MyUpdater
+    form={`update: ${data.uaNode.id}`}
     initialValues={{value: data.uaNode.dataValue.value.intValue}}
     data={data}
     onSubmit={(props)=>{
+      console.log('mmm', props.value)
       mutate({
         variables: {
           id: data.uaNode.id, 
           value: {
             ...data.uaNode.dataValue,
             value: props.value,
+            statusCode: undefined,
             __typename: undefined
           }
         }
