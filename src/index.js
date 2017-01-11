@@ -73,7 +73,7 @@ ReactDOM.render(
           <Match
               pattern="/:id"
               render= {({id, params}) => <div>
-                <Link to={`${params.id}/edit`}>edit</Link>
+                <Link to='edit'>edit</Link>
                 <SubscribedComponent id={id} params={params}/>
                 <Boiler id='ns=5;i=1'/>
               </div>}
