@@ -13,16 +13,16 @@ import Boiler from './components/Boiler'
 
 
 const batchingNetworkInterface = createBatchingNetworkInterface({
-  uri: 'http://localhost:8089/graphql',
-  //uri: 'https://ua-ql-3.herokuapp.com/graphql',
+  //uri: 'http://localhost:8089/graphql',
+  uri: 'https://ua-ql-3.herokuapp.com/graphql',
   batchInterval: 10,
   opts: {
     // Options to pass along to `fetch`
   }
 });
 
-//const wsClient = new Client('ws://uaql-2.herokuapp.com/', {timeout: 20000, reconnect: true});
-const wsClient = new Client('ws://localhost:8090/', {timeout: 20000,});
+const wsClient = new Client('ws://uaql-2.herokuapp.com/', {timeout: 20000, reconnect: true});
+//const wsClient = new Client('ws://localhost:8090/', {timeout: 20000,});
 
 
 const networkInterface = addGraphQLSubscriptions(
@@ -58,27 +58,28 @@ const SubscribedComponent = S
 ReactDOM.render(
   <BrowserRouter>
     <div>
-      
+      {/*}
       <Link to="/ns=2;i=10931">Home1</Link>
       <Link to="/ns=2;i=10932">Home2</Link>
       <Link to="/ns=2;i=10849">Home3</Link>
       <Link to="/ns=2;i=10855">Home4</Link>
       <Link to="/ns=2;i=10939">Home5</Link>
       <Link to="/ns=2;i=10219">Homesatic</Link>
-      
+      */}
       <ApolloProvider 
         client={client} 
         store={store}
       >
         <div>
-          <Match
+          <Boiler id='ns=5;i=1'/>
+          {/* <Match
               pattern="/:id"
               render= {({id, params}) => <div>
                 <Link to={`/${params.id}/edit`}>edit</Link>
                 <SubscribedComponent id={id} params={params}/>
                 <Boiler id='ns=5;i=1'/>
               </div>}
-          />
+          /> */}
         </div>
       </ApolloProvider>
     </div>
