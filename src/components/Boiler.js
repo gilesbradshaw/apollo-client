@@ -35,6 +35,25 @@ const _Boiler = ({id})=>
             referenceTypeId: "ns=0;i=47",
             targetName: {
               namespaceIndex:4, 
+              name:'Simulation'
+            }
+          }
+        ]
+      }}
+      component={Methods}
+    />
+    <CurrentState id={id}/>
+    <LastTransition id={id}/>
+
+    <BrowsePath
+      id={id}
+      relativePath={{
+        elements:
+        [
+          {
+            referenceTypeId: "ns=0;i=47",
+            targetName: {
+              namespaceIndex:4, 
               name:'PipeX001'
             }
           }
@@ -123,24 +142,7 @@ const _Boiler = ({id})=>
       }}
       component={CustomController}
     />
-    <BrowsePath
-      id={id}
-      relativePath={{
-        elements:
-        [
-          {
-            referenceTypeId: "ns=0;i=47",
-            targetName: {
-              namespaceIndex:4, 
-              name:'Simulation'
-            }
-          }
-        ]
-      }}
-      component={Methods}
-    />
-    <CurrentState id={id}/>
-    <LastTransition id={id}/>
+    
   </div>
 
 const Boiler = compose(
