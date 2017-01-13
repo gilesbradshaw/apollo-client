@@ -1,29 +1,20 @@
 import React from 'react';
 import Name from './Node/Name'
-import DataValue from './Node/DataValue'
-import BrowsePath from './Node/BrowsePath'
+import Output from './values/Output'
+import treeStyles from '../styles/TreeStyles'
 
 const LevelIndicator = ({id})=>
-  <span>
-    <Name id={id}/>
-    Level!!!:: {id}
-    <BrowsePath
-      id={id}
-      relativePath={{
-        elements:
-        [
-          {
-            referenceTypeId: 'ns=0;i=47',
-            targetName: {
-              namespaceIndex:4, 
-              name:'Output'
-            }
-          }
-        ]
-      }}
-      component={DataValue}
-    />
-    
-  </span>
+  <div>
+    <div style={{...treeStyles.flex, ...treeStyles.titleRow}}>
+      <div style={treeStyles.titleLabel}>LevelIndicator</div>
+      <Name id={id}/>
+    </div>
+    <div style={treeStyles.flex}>
+      <div style={treeStyles.step}/>
+      <div>
+        <Output id={id}/>
+      </div>
+    </div>
+  </div>
 
 export default LevelIndicator;

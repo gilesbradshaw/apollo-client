@@ -76,22 +76,18 @@ const MyNodeQuery = gql`query q(
   } 
 }`;
 const _Methods = ({id, data: { uaNode }={}})=>
-  <ul style={{ fontWeight:'bold' }}>
+  <div  style={{display:'flex'}}>
     {uaNode 
       && uaNode.references
       && uaNode.references.references
       && uaNode.references.references.map(r=>
-        <li key={r.id}>
-          <Link to={r.nodeId.uaNode.id}>
-            {r.displayName.text} 
-            {r.nodeId.uaNode.id}
-            {r.nodeId.uaNode.executable.value && 'execute'}
-            <CallMethod id={r.nodeId.uaNode.id}/>
-          </Link>
+
+        <div key={r.id}>
+          <CallMethod id={r.nodeId.uaNode.id}/>
           <Method id={id} node={r.nodeId.uaNode} />
-        </li>
+        </div>
       ) }
-  </ul>
+  </div>
 
 const Methods = compose(
   graphql(MyNodeQuery)

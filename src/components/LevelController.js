@@ -1,62 +1,23 @@
 import React from 'react';
 import Name from './Node/Name'
-import DataValue from './Node/DataValue'
-import BrowsePath from './Node/BrowsePath'
+import Measurement from './values/Measurement'
+import Setpoint from './values/Setpoint'
+import ControlOut from './values/ControlOut'
+import treeStyles from '../styles/TreeStyles'
 
 const LevelController = ({id})=>
-  <span>
-    <Name id={id}/>
-    Level!!!:: {id}
-    <BrowsePath
-      id={id}
-      relativePath={{
-        elements:
-        [
-          {
-            referenceTypeId: 'ns=0;i=46',
-            targetName: {
-              namespaceIndex:4, 
-              name:'Measurement'
-            }
-          }
-        ]
-      }}
-      component={DataValue}
-    />
-    setpoint
-    <BrowsePath
-      id={id}
-      relativePath={{
-        elements:
-        [
-          {
-            referenceTypeId: 'ns=0;i=46',
-            targetName: {
-              namespaceIndex:4, 
-              name:'SetPoint'
-            }
-          }
-        ]
-      }}
-      component={DataValue}
-    />
-    out
-    <BrowsePath
-      id={id}
-      relativePath={{
-        elements:
-        [
-          {
-            referenceTypeId: 'ns=0;i=46',
-            targetName: {
-              namespaceIndex:4, 
-              name:'ControlOut'
-            }
-          }
-        ]
-      }}
-      component={DataValue}
-    />
-  </span>
-
+  <div>
+    <div style={{...treeStyles.flex, ...treeStyles.titleRow}}>
+      <div style={treeStyles.titleLabel}> Level Controller </div>
+      <Name id={id}/>
+    </div>
+    <div style={treeStyles.flex}>
+      <div style={treeStyles.step}/>
+      <div>
+        <Measurement id={id}/>
+        <Setpoint id={id}/>
+        <ControlOut id={id}/>
+      </div>
+    </div>
+  </div>
 export default LevelController;

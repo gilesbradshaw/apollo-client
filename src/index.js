@@ -70,9 +70,11 @@ ReactDOM.render(
         client={client} 
         store={store}
       >
-        <div>
+        <div style = {{display: 'flex'}}>
+          {/* <Boiler id='ns=4;i=1241'/> */}
           <Boiler id='ns=5;i=1'/>
-          {/* <Match
+          
+           {/* <Match
               pattern="/:id"
               render= {({id, params}) => <div>
                 <Link to={`/${params.id}/edit`}>edit</Link>

@@ -10,6 +10,9 @@ import Drum from './Drum'
 import BrowsePath from './Node/BrowsePath'
 import Methods from './Node/Methods'
 import DataValue from './Node/DataValue'
+import Name from './Node/Name'
+import CurrentState from './values/CurrentState'
+import LastTransition from './values/LastTransition'
 
 
 const MyNodeQuery = gql`query q($id: String!) { 
@@ -22,6 +25,7 @@ const MyNodeQuery = gql`query q($id: String!) {
 
 const _Boiler = ({id})=>
   <div>
+    <h1><Name id={id}/></h1>
     <BrowsePath
       id={id}
       relativePath={{
@@ -135,54 +139,8 @@ const _Boiler = ({id})=>
       }}
       component={Methods}
     />
-    <BrowsePath
-      id={id}
-      relativePath={{
-        elements:
-        [
-          {
-            referenceTypeId: "ns=0;i=47",
-            targetName: {
-              namespaceIndex:4, 
-              name:'Simulation'
-            }
-          },
-          {
-            referenceTypeId: "ns=0;i=47",
-            targetName: {
-              namespaceIndex:0, 
-              name:'CurrentState'
-            }
-          }
-
-        ]
-      }}
-      component={DataValue}
-    />
-    <BrowsePath
-      id={id}
-      relativePath={{
-        elements:
-        [
-          {
-            referenceTypeId: "ns=0;i=47",
-            targetName: {
-              namespaceIndex:4, 
-              name:'Simulation'
-            }
-          },
-          {
-            referenceTypeId: "ns=0;i=47",
-            targetName: {
-              namespaceIndex:0, 
-              name:'LastTransition'
-            }
-          }
-
-        ]
-      }}
-      component={DataValue}
-    />
+    <CurrentState id={id}/>
+    <LastTransition id={id}/>
   </div>
 
 const Boiler = compose(

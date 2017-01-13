@@ -4,6 +4,7 @@ import { graphql, compose } from 'react-apollo';
 import Update from './Update';
 import { Match } from 'react-router'
 import { withState } from 'recompose'
+import treeStyles from '../../styles/TreeStyles'
 
 
 const MyNodeQuery = gql`
@@ -144,7 +145,7 @@ const _DataValue = ({
           nodeIdValue,
           expandedNodeIdValue,
         }= dataValue || {}
-    return <div>
+  return <div style={treeStyles.value}>
       {!value && <div>
         <Match 
           pattern='edit'
@@ -164,7 +165,7 @@ const _DataValue = ({
           {__typename==="UaFloat" && floatValue}
           {__typename==="UaIntArray" && intArrayValue}
           {__typename==="UaStringArray" && stringArrayValue}
-          {__typename==="UaLocalizedText" && localizedTextValue && 'hahahah' + localizedTextValue.text}
+          {__typename==="UaLocalizedText" && localizedTextValue && localizedTextValue.text}
           {__typename==="UaQualifiedName" && qualifiedNameValue.name}
           {__typename==="UaXmlElement" && xmlElementValue}
           {statusCodeValue && statusCodeValue.name}
@@ -173,7 +174,9 @@ const _DataValue = ({
           {JSON.stringify(expandedNodeIdValue)}
           {guidValue}
       </div>}
-      +{value && description}+
+      {value>0 && <div style={{color: 'red'}}>
+        {description}
+      </div>}
     </div>
   }
   /*
