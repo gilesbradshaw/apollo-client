@@ -21,7 +21,7 @@ const batchingNetworkInterface = createBatchingNetworkInterface({
   }
 });
 
-const wsClient = new Client('ws://uaql-2.herokuapp.com/', {timeout: 20000, reconnect: true});
+const wsClient = new Client('wss://uaql-2.herokuapp.com/', {timeout: 20000, reconnect: true});
 //const wsClient = new Client('ws://localhost:8090/', {timeout: 20000,});
 
 
