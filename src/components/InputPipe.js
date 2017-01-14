@@ -4,15 +4,13 @@ import BrowsePath from './Node/BrowsePath'
 import FlowTransmitter from './FlowTransmitter'
 import Valve from './Valve'
 import treeStyles from '../styles/TreeStyles'
+import labeledName from './labeledName'
+
+const LabeledName =  labeledName('Input pipe')
 
 const InputPipe = ({id})=>
   <div>
-    <div style={{...treeStyles.flex, ...treeStyles.titleRow}}>
-      <div style={treeStyles.titleLabel}>
-        Input pipe
-      </div>
-      <Name id={id}/>
-    </div>
+    <LabeledName id={id}/>
     <div>
       <div style={treeStyles.flex}>
         <div style={treeStyles.step}/>

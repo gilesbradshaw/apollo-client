@@ -4,13 +4,13 @@ import Measurement from './values/Measurement'
 import Setpoint from './values/Setpoint'
 import ControlOut from './values/ControlOut'
 import treeStyles from '../styles/TreeStyles'
+import labeledName from './labeledName'
+
+const LabeledName =  labeledName('Flow controller')
 
 const FlowController = ({id})=>
   <div>
-    <div style={{...treeStyles.flex, ...treeStyles.titleRow}}>
-      <div style={treeStyles.titleLabel}> Flow Controller </div>
-      <Name id={id}/>
-    </div>
+    <LabeledName id={id}/>
     <div style={treeStyles.flex}>
       <div style={treeStyles.step}/>
       <div>

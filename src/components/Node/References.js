@@ -3,6 +3,7 @@ import gql from 'graphql-tag';
 import { graphql, compose } from 'react-apollo';
 import { Link } from 'react-router'
 import Name from './Name'
+import treeStyles from '../../styles/TreeStyles'
 
 const MyNodeQuery = gql`query q(
   $id: String!, 
@@ -46,31 +47,29 @@ const MyNodeQuery = gql`query q(
       }
     }
   } 
-}`;
-const _References = ({loading, data: { uaNode }={}})=>
-  <ul style={{ fontWeight:'bold' }}>
+}`; 
+const _References = ({loading, browseDirection, data: { uaNode }={}})=>
+  <div>
     {uaNode 
       && uaNode.references
       && uaNode.references.references
       && uaNode.references.references.map(r=>
-        <li key={r.id}>
-          <Link to={`/${r.nodeId.uaNode.id}`}>
+        <div key={r.id} style={{...treeStyles.flex}}>
+          {browseDirection=='Inverse' && <Link title='reference' to={`/browse/${r.nodeId.uaNode.id}`}>
             {r.browseName.name}
-            -
-            {r.nodeClass}
-            -
-            {r.displayName.text} 
-             -
-            <Name id={r.referenceTypeId.uaNode.id}/> ({r.referenceTypeId.uaNode.id})
-             -
-            <Name id={r.typeDefinition.uaNode.id}/> ({r.typeDefinition.uaNode.id})
-            
+          </Link>}
+          <Link title='reference type' to={`/browse/${r.referenceTypeId.uaNode.id}`}>
+            <Name id={r.referenceTypeId.uaNode.id}/>
           </Link>
-          
-          
-        </li>
+          <Link title='type definition' to={`/browse/${r.typeDefinition.uaNode.id}`}>
+            <Name id={r.typeDefinition.uaNode.id}/>
+          </Link>
+          {browseDirection!='Inverse' && <Link title='reference' to={`/browse/${r.nodeId.uaNode.id}`}>
+            {r.browseName.name}
+          </Link>}
+        </div>
       ) }
-  </ul>
+  </div>
 
 const References = compose(
   graphql(MyNodeQuery)

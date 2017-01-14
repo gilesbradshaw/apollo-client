@@ -1,15 +1,13 @@
 import React from 'react';
-import Name from './Node/Name'
 import BrowsePath from './Node/BrowsePath'
 import FlowTransmitter from './FlowTransmitter'
 import treeStyles from '../styles/TreeStyles'
+import labeledName from './labeledName'
 
+const LabeledName =  labeledName('Output pipe')
 const OutputPipe = ({id})=>
   <div>
-    <div style={{...treeStyles.flex, ...treeStyles.titleRow}}>
-      <div style={treeStyles.titleLabel}>Output pipe</div>
-      <Name id={id}/>
-    </div>
+    <LabeledName id={id}/>
     <div style={treeStyles.flex}>
       <div style={treeStyles.step}/>
       <div>

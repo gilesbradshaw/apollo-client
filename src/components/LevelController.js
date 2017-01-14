@@ -1,16 +1,15 @@
 import React from 'react';
-import Name from './Node/Name'
 import Measurement from './values/Measurement'
 import Setpoint from './values/Setpoint'
 import ControlOut from './values/ControlOut'
 import treeStyles from '../styles/TreeStyles'
+import labeledName from './labeledName'
+
+const LabeledName =  labeledName('Level controller')
 
 const LevelController = ({id})=>
   <div>
-    <div style={{...treeStyles.flex, ...treeStyles.titleRow}}>
-      <div style={treeStyles.titleLabel}> Level Controller </div>
-      <Name id={id}/>
-    </div>
+    <LabeledName id={id}/>
     <div style={treeStyles.flex}>
       <div style={treeStyles.step}/>
       <div>

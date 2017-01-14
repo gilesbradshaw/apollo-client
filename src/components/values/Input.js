@@ -1,28 +1,25 @@
 import React from 'react';
-import Name from '../Node/Name'
-import DataValue from '../Node/DataValue'
 import BrowsePath from '../Node/BrowsePath'
-import treeStyles from '../../styles/TreeStyles'
+import labeledValue from './labeledValue'
+
+const _Input = labeledValue('Input')
 
 const Input = ({id, i=''})=>
-  <div style={{...treeStyles.flex, ...treeStyles.titleRow}}>
-    <div style={treeStyles.titleLabel}>Input {i}</div>    
-    <BrowsePath
-      id={id}
-      relativePath={{
-        elements:
-        [
-          {
-            referenceTypeId: 'ns=0;i=46',
-            targetName: {
-              namespaceIndex:4, 
-              name:`Input${i}`
-            }
+  <BrowsePath
+    id={id}
+    relativePath={{
+      elements:
+      [
+        {
+          referenceTypeId: 'ns=0;i=46',
+          targetName: {
+            namespaceIndex:4, 
+            name:`Input${i}`
           }
-        ]
-      }}
-      component={DataValue}
-    />
-  </div>
-
+        }
+      ]
+    }}
+    component={_Input}
+  />
+  
 export default Input;

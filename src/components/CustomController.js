@@ -1,19 +1,17 @@
 import React from 'react';
-import Name from './Node/Name'
+import { Link } from 'react-router'
 import DataValue from './Node/DataValue'
 import BrowsePath from './Node/BrowsePath'
 import ControlOut from './values/ControlOut'
 import Input from './values/Input'
 import treeStyles from '../styles/TreeStyles'
+import labeledName from './labeledName'
+
+const LabeledName =  labeledName('Custom Controller')
 
 const CustomController = ({id})=>
   <div>
-    <div style={{...treeStyles.flex, ...treeStyles.titleRow}}>
-      <div style={treeStyles.titleLabel}>
-        Custom controller
-      </div>
-      <Name id={id}/>
-    </div>
+    <LabeledName id={id}/>
     <div style={treeStyles.flex}>
       <div style={treeStyles.step}/>
       <div>

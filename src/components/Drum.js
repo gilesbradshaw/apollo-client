@@ -3,13 +3,13 @@ import Name from './Node/Name'
 import BrowsePath from './Node/BrowsePath'
 import LevelIndicator from './LevelIndicator'
 import treeStyles from '../styles/TreeStyles'
+import labeledName from './labeledName'
+
+const LabeledName =  labeledName('Drum')
 
 const Drum = ({id})=>
   <div>
-    <div style={{...treeStyles.flex, ...treeStyles.titleRow}}> 
-      <div style={treeStyles.titleLabel}> Drum </div>
-      <Name id={id}/>
-    </div>
+    <LabeledName id={id}/>
     <div style={treeStyles.flex}> 
       <div style={treeStyles.step}/>
       <div>

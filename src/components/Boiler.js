@@ -1,5 +1,6 @@
 import React from 'react';
 import gql from 'graphql-tag';
+import { Link } from 'react-router'
 import { graphql, compose } from 'react-apollo';
 import FlowController from './FlowController'
 import LevelController from './LevelController'
@@ -13,6 +14,7 @@ import DataValue from './Node/DataValue'
 import Name from './Node/Name'
 import CurrentState from './values/CurrentState'
 import LastTransition from './values/LastTransition'
+import treeStyles from '../styles/TreeStyles'
 
 
 const MyNodeQuery = gql`query q($id: String!) { 
@@ -25,7 +27,12 @@ const MyNodeQuery = gql`query q($id: String!) {
 
 const _Boiler = ({id})=>
   <div>
-    <h1><Name id={id}/></h1>
+    <div style={{...treeStyles.flex, ...treeStyles.titleRow}}>
+      <div style={treeStyles.titleLabel}>
+        <Link to={`/browse/${id}`}>Boiler</Link>
+      </div>
+      <Name id={id}/>
+    </div>
     <BrowsePath
       id={id}
       relativePath={{

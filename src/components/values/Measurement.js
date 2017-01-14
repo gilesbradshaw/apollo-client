@@ -1,12 +1,10 @@
 import React from 'react';
-import Name from '../Node/Name'
-import DataValue from '../Node/DataValue'
 import BrowsePath from '../Node/BrowsePath'
-import treeStyles from '../../styles/TreeStyles'
+import labeledValue from './labeledValue'
+
+const _Measurement = labeledValue('Measurement')
 
 const Measurement = ({id})=>
-  <div style={{...treeStyles.flex, ...treeStyles.titleRow}}>
-    <div style={treeStyles.titleLabel}>Measurement</div>    
     <BrowsePath
       id={id}
       relativePath={{
@@ -21,8 +19,7 @@ const Measurement = ({id})=>
           }
         ]
       }}
-      component={DataValue}
+      component={_Measurement}
     />
-  </div>
 
 export default Measurement;
