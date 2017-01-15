@@ -55,18 +55,34 @@ const _References = ({loading, browseDirection, data: { uaNode }={}})=>
       && uaNode.references.references
       && uaNode.references.references.map(r=>
         <div key={r.id} style={{...treeStyles.flex}}>
-          {browseDirection=='Inverse' && <Link title='reference' to={`/browse/${r.nodeId.uaNode.id}`}>
+          {browseDirection=='Inverse' && 
+            <Link 
+              style={treeStyles.titleLabel}
+              title='reference' 
+              to={`/browse/${r.nodeId.uaNode.id}`}>
             {r.browseName.name}
-          </Link>}
-          <Link title='reference type' to={`/browse/${r.referenceTypeId.uaNode.id}`}>
+            </Link>
+          }
+          <Link
+            style={treeStyles.label} 
+            title='reference type' 
+            to={`/browse/${r.referenceTypeId.uaNode.id}`}>
             <Name id={r.referenceTypeId.uaNode.id}/>
           </Link>
-          <Link title='type definition' to={`/browse/${r.typeDefinition.uaNode.id}`}>
+          <Link
+            style={treeStyles.label} 
+            title='type definition' 
+            to={`/browse/${r.typeDefinition.uaNode.id}`}>
             <Name id={r.typeDefinition.uaNode.id}/>
           </Link>
-          {browseDirection!='Inverse' && <Link title='reference' to={`/browse/${r.nodeId.uaNode.id}`}>
-            {r.browseName.name}
-          </Link>}
+          {browseDirection!='Inverse' && 
+            <Link
+              style={treeStyles.titleLabel}
+              title='reference' 
+              to={`/browse/${r.nodeId.uaNode.id}`}>
+              {r.browseName.name}
+            </Link>
+          }
         </div>
       ) }
   </div>

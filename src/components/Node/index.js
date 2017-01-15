@@ -8,6 +8,7 @@ import DataType from './DataType';
 import ValueRank from './ValueRank';
 import DataQuality from './DataQuality';
 import DataValue from './DataValue';
+import treeStyles from '../../styles/TreeStyles'
 //import DV from './DataValue.1';
 
 import References from './References';
@@ -24,42 +25,46 @@ const N = ({ id, data: {loading, uaNode} = {}})=>
       browseDirection='Inverse'
       id={id}
     />
-    <div>
-      name: 
+    <hr/>
+    <div style={treeStyles.flex}>
+      <div style={treeStyles.titleLabel}>
+        Name
+      </div>
       <Name id={id}/>
     </div>
-    <div>
-      node class: 
+    <div style={treeStyles.flex}>
+      <div style={treeStyles.titleLabel}>
+        Node class
+      </div>
       <NodeClass id={id}/>
     </div>
     {uaNode && uaNode.nodeClass === 'Variable' && 
       <div>
-        <div>
-          dataType: 
+        <div style={treeStyles.flex}>
+          <div style={treeStyles.titleLabel}>
+            Data type 
+          </div>
           <DataType id={id}/> (<ValueRank id={id}/>)
         </div>   
-        <div>
-          dataQuality: 
+        <div style={treeStyles.flex}>
+          <div style={treeStyles.titleLabel}>
+            Data quality 
+          </div>
           <DataQuality id={id}/>
         </div>
-        <div>
-          dataValue: 
+        <div style={treeStyles.flex}>
+          <div style={treeStyles.titleLabel}>
+            Data value 
+          </div>
           <DataValue id={id}/>
         </div>
         
       </div>
     }
+    <hr/>
     <References
       id={id}
       browseDirection='Forward'
-    />
-    <References
-      browseDirection='Forward'
-      nodeClasses={['Method']}
-      id={id}
-    />
-    <Methods
-      id={id}
     />
   </div>
 

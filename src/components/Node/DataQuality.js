@@ -19,7 +19,6 @@ const MyNodeQuery = gql`query q($id: String!) {
 
 const _DataQuality = ({ data: {loading, uaNode }={}})=>
   <span>
-    {!loading && 'hereeee'}
     {uaNode && uaNode.dataValue.statusCode.name}
   </span>
 
