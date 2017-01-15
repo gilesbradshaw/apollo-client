@@ -27,6 +27,9 @@ const MyNodeQuery = gql`query q($id: String!) {
 
 const _Boiler = ({id})=>
   <div>
+    <h1>
+      <Name id={id}/>
+    </h1>
     <div style={{...treeStyles.flex, ...treeStyles.titleRow}}>
       <div style={treeStyles.titleLabel}>
         <Link to={`/browse/${id}`}>Boiler</Link>

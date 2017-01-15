@@ -26,7 +26,7 @@ const MyNodeQuery = gql`query q($id: String!) {
 
 
 const _BoilerSummary = ({id})=>
-  <div>
+  <div style={treeStyles.menu}>
     <Link
       activeOnlyWhenExact 
       activeStyle={treeStyles.active}

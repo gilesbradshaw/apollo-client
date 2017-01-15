@@ -21,6 +21,7 @@ const MyNodeQuery = gql`query q($id: String!) {
 }`;
 const N = ({ id, data: {loading, uaNode} = {}})=>
   <div>
+    <h1>Browse</h1>
     <References
       browseDirection='Inverse'
       id={id}

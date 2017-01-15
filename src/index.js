@@ -16,6 +16,7 @@ import Node from './components/Node'
 import Name from './components/Node/Name'
 import { createStore, combineReducers } from 'redux'
 import { reducer as formReducer } from 'redux-form'
+import Boilers from './components/Boilers'
 import Boiler from './components/Boiler'
 import BoilerSummary from './components/BoilerSummary'
 import treeStyles from './styles/TreeStyles'
@@ -75,11 +76,13 @@ const HomeMenu=()=>
     activeOnlyWhenExact 
     activeStyle={treeStyles.active}>Home</Link>
 const BoilersMenu=()=>
-  <Link 
-    to="/boilers"
-    style={treeStyles.menu}
-    activeOnlyWhenExact 
-    activeStyle={treeStyles.active}>Boilers</Link>
+  <div>
+    <Link 
+      to="/boilers"
+      style={treeStyles.menu}
+      activeOnlyWhenExact 
+      activeStyle={treeStyles.active}>Boilers</Link>
+  </div>
 const BoilerMenu=({params: {id}})=>
   <Link 
     to={`/boilers/${id}`}
@@ -89,11 +92,13 @@ const BoilerMenu=({params: {id}})=>
     <Name id={id}/>
   </Link>
 const BrowseMenu=()=>
-  <Link 
-    to="/browse"
-    style={treeStyles.menu}
-    activeOnlyWhenExact 
-    activeStyle={treeStyles.active}>Browse</Link>
+  <div>
+    <Link 
+      to="/browse"
+      style={treeStyles.menu}
+      activeOnlyWhenExact 
+      activeStyle={treeStyles.active}>Browse</Link>
+  </div>
 const BrowseItemMenu=({params: {id}})=>
   <Link 
     to="/browse"
@@ -103,18 +108,16 @@ const BrowseItemMenu=({params: {id}})=>
     <Name id={id}/>
   </Link>
 
-const Boilers=({pathname})=><div>
-    <div style={treeStyles.flex}>
-      <BoilerSummary id='ns=4;i=1241'/>
-      <BoilerSummary id='ns=5;i=1'/>
-    </div>    
-  
-</div>
-
-const Home=()=><div>
-  <h1>Opc-ua accessed from the browser with GraphQL</h1>
-  <BoilersMenu/>
-  <BrowseMenu/>
+const Home=()=><div style={treeStyles.flex}>
+  <div style = {treeStyles.step}/>
+  <div>
+    <h1>Opc-ua accessed from the browser with GraphQL</h1>
+    <BoilersMenu/>
+    <BrowseMenu/>
+    <p/>
+    <div>If this isn't working - maybe the free server is taking a break...</div>
+    
+  </div>
 </div>
 
 
@@ -152,15 +155,16 @@ ReactDOM.render(
           {/* <Boiler id='ns=4;i=1241'/> */}
           <div style={treeStyles.flex}>
             <Match pattern="/" component={HomeMenu} />
-            <Match pattern='/boilers' component={BoilersMenu} />
-            <Match pattern='/boilers/:id' component={BoilerMenu} />
+            <Match pattern='/boilers/:id' component={BoilersMenu} />
+            {/*<Match pattern='/boilers/:id' component={BoilerMenu} />
             <Match pattern='/browse' component={BrowseMenu} />
-            <Match pattern='/browse/:id' component={BrowseItemMenu} />
+            <Match pattern='/browse/:id' component={BrowseItemMenu} /> */}
           </div>
           <Match exactly pattern="/" component={Home} />                   
-          <Match exactly pattern="/boilers" component={Boilers} />
+          <Match exactly pattern="/boilers" render={()=><Boilers id='ns=0;i=85'/>} />
           <Match pattern="/boilers/:id" component={BoilerPage} />
           <Match pattern="/browse" component={Browse} />
+          
         </div>
       </ApolloProvider>
     </div>
