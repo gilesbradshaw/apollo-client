@@ -58,9 +58,9 @@ const store = createStore(reducer)
 
 
 
-const S = ({data, params: {id}})=>
+const S = ({pathname, data, params: {id}})=>
   <div>     
-    <Node id={id}/>
+    <Node pathname={pathname} id={id}/>
   </div>
 
 const SubscribedComponent = S
@@ -122,26 +122,27 @@ const Home=()=><div style={treeStyles.flex}>
 
 
 const Browse=({pathname})=><div style={treeStyles.flex}>
-    <Match exactly pattern={pathname} render={()=><Redirect to={`${pathname}/ns=0;i=84`}/>}/>
-    
-    {/*
-    <div>
-      <Link to={`$pathname}/ns=2;i=10931`}>Home1</Link>
-    </div>
+  <Match exactly pattern={pathname} render={()=><Redirect to={`${pathname}/ns=0;i=84`}/>}/>
+  
+  {/*
+  <div>
+    <Link to={`$pathname}/ns=2;i=10931`}>Home1</Link>
+  </div>
 
-    <Link to="/browse/ns=2;i=10932">Home2</Link>
-    <Link to="/browse/ns=2;i=10849">Home3</Link>
-    <Link to="/browse/ns=2;i=10855">Home4</Link>
-    <Link to="/browse/ns=2;i=10939">Home5</Link>
-    <Link to="/browse/ns=2;i=10219">Homesatic</Link>
-    */}
+  <Link to="/browse/ns=2;i=10932">Home2</Link>
+  <Link to="/browse/ns=2;i=10849">Home3</Link>
+  <Link to="/browse/ns=2;i=10855">Home4</Link>
+  <Link to="/browse/ns=2;i=10939">Home5</Link>
+  <Link to="/browse/ns=2;i=10219">Homesatic</Link>
+  */}
+  <div>
     <Match
-      pattern="/browse/:id"
-      render= {({params}) => <div>
-        <Link to={`${params.id}/edit`}>edit</Link>
-        <SubscribedComponent params={params}/>
-      </div>}
+      pattern={`${pathname}/:id`}
+      render= {({pathname, params}) =>
+        <SubscribedComponent pathname={pathname} params={params}/>
+      }
     />
+  </div>
 </div>
 
 ReactDOM.render(
