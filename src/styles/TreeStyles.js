@@ -19,6 +19,9 @@ export default {
   name: {
     padding: 2,
     fontWeight: 'bold'
+  },
+  active: {
+    backgroundColor: 'lightPink'
   }
   
 }

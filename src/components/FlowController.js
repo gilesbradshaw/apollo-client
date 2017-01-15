@@ -1,5 +1,4 @@
 import React from 'react';
-import Name from './Node/Name'
 import Measurement from './values/Measurement'
 import Setpoint from './values/Setpoint'
 import ControlOut from './values/ControlOut'

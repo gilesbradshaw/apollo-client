@@ -1,6 +1,12 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import { HashRouter, BrowserRouter, Match, Link } from 'react-router'
+import { 
+  HashRouter, 
+  BrowserRouter, 
+  Match, 
+  Link,
+  Redirect
+} from 'react-router'
 import './index.css';
 import ApolloClient, { createBatchingNetworkInterface} from 'apollo-client';
 import { Client } from 'subscriptions-transport-ws';
@@ -10,6 +16,7 @@ import Node from './components/Node'
 import { createStore, combineReducers } from 'redux'
 import { reducer as formReducer } from 'redux-form'
 import Boiler from './components/Boiler'
+import BoilerSummary from './components/BoilerSummary'
 import treeStyles from './styles/TreeStyles'
 
 
@@ -56,10 +63,47 @@ const S = ({data, params: {id}})=>
 
 const SubscribedComponent = S
 
-const Home=()=><Boiler id='ns=5;i=1'/>
-const Browse=()=><div style={treeStyles.flex}>
+
+const BoilerPage=({params: {id}})=><div>
+  <Boiler id={id}/>
+</div>
+
+
+const Boilers=({pathname})=><div>
+    <div style={treeStyles.flex}>
+      <BoilerSummary id='ns=4;i=1241'/>
+      <BoilerSummary id='ns=5;i=1'/>
+    </div>    
+  <Match pattern=":id" component={BoilerPage} />
+</div>
+
+const Home=()=><div>
+  <h1>Opc-ua accessed from the browser with GrahQL</h1>
+</div>
+
+const HomeMenu=()=><div>
+  <Link 
+    to="/" 
+    activeOnlyWhenExact 
+    activeStyle={treeStyles.active}>Home</Link>
+  <Link 
+    to="/boilers"
+    activeOnlyWhenExact 
+    activeStyle={treeStyles.active}>Boilers</Link>
+  <Link 
+    to="/browse"
+    activeStyle={treeStyles.active}>Browse</Link>
+  <Match pattern="/boilers" component={Boilers} />
+  <Match pattern="/browse" component={Browse} />
+
+</div>
+
+const Browse=({pathname})=><div style={treeStyles.flex}>
+    <Match exactly pattern={pathname} render={()=><Redirect to={`${pathname}/ns=0;i=84`}/>}/>
+    
+    {/*
     <div>
-      <Link to="/browse/ns=2;i=10931">Home1</Link>
+      <Link to={`$pathname}/ns=2;i=10931`}>Home1</Link>
     </div>
 
     <Link to="/browse/ns=2;i=10932">Home2</Link>
@@ -67,13 +111,19 @@ const Browse=()=><div style={treeStyles.flex}>
     <Link to="/browse/ns=2;i=10855">Home4</Link>
     <Link to="/browse/ns=2;i=10939">Home5</Link>
     <Link to="/browse/ns=2;i=10219">Homesatic</Link>
+    */}
+    <Match
+      pattern="/browse/:id"
+      render= {({params}) => <div>
+        <Link to={`${params.id}/edit`}>edit</Link>
+        <SubscribedComponent params={params}/>
+      </div>}
+    />
 </div>
 
 ReactDOM.render(
   <HashRouter>
     <div>
-      
-      
       
       <ApolloProvider 
         client={client} 
@@ -81,18 +131,8 @@ ReactDOM.render(
       >
         <div>
           {/* <Boiler id='ns=4;i=1241'/> */}
-          
-          <Match exactly pattern="/" component={Home} />
-          <Match pattern="/browse" component={Browse} />
-          <Match
-              pattern="/browse/:id"
-              render= {({id, params}) => <div>
-                <Link to={`${params.id}/edit`}>edit</Link>
-                <SubscribedComponent id={id} params={params}/>
-              </div>}
-            />
-          
-          
+          <Match pattern="/" component={HomeMenu} />
+          <Match exactly pattern="/" component={Home} />                   
         </div>
       </ApolloProvider>
     </div>
